@@ -1,13 +1,13 @@
 # GCN_Classification
 
-Training Enviroment
+## Training Enviroment
 
 - CUDA 10.2
 - NVIDIA GeForce GTX 1080 Ti
 
-1. Pre-processing
+## 1. Pre-processing
 
-1-1 json에서 필요한 데이터만 추출
+### 1-1. json에서 필요한 데이터만 추출
 
 *tag에 “분석방법”이 없고 “데이터처리”가 존재하여 이를 치환
 
@@ -23,7 +23,7 @@ TXT_FILE = "parser/data/tagging.txt" → "parser/data/tagging_test.txt"
 python extract.py
 ```
 
-1-2 의존구문 분석
+### 1-2. 의존구문 분석
 
 - 의존구문 분석을 위한 가상 환경 필요
 - 의존구문 분석 시간 다소 필요
@@ -50,7 +50,7 @@ python bin/main.py -root_dir ./ -file_name "의존구문을 시행할 txt" -batc
 - 의존구문 분석이 끝나면 다시 conda activate classi 해줘야함
 - json파일에서 ??????로 존재하는 문장은 의존구문 분석에서 ERROR가 나기 때문에 인접 행렬 구성 시 초기화 값을 이용
 
-1-3 모델 가상 환경 필요
+### 1-3. 모델 가상 환경 필요
 
 ```python
 conda create -n classi python=3.6
@@ -85,9 +85,9 @@ pip install mecab-python
 
 ```
 
-1. Model
+## 2. Model
 
-2-1. 문서 분류(Classification)모델
+### 2-1. 문서 분류(Classification)모델
 
 - [extract.py](http://extract.py) : json파일에서 문장과 태그를 읽어 csv, txt로 저장
 - [gnn.py](http://gnn.py) : GCN구현
@@ -140,12 +140,12 @@ pip install mecab-python
 - 구성한 인접행렬과 GCN(Graph Convolutional Network)을 이용하여 class예측
 - 각 class의 불균형의 존재 —> focal loss이용, macro/micro fi-score 이용
 
-1. How to use 🔅 
+## How to use 🔅 
     
-    **Trainig**
+**Trainig**
     
-    - 의존구문 분석기 실행
-    - train 파일 실행
+- 의존구문 분석기 실행
+- train 파일 실행
     
     ```python
     conda activate Dpar
@@ -158,7 +158,7 @@ pip install mecab-python
     
     ```
     
-    - model_save에 best model이 저장
+- model_save에 best model이 저장
     
     ```python
     #입력"sentence, tag" csv 데이터
@@ -167,30 +167,29 @@ pip install mecab-python
     dp_fnm = "./parser/result/tagging_rslt.txt"
     ```
     
-    **Evaluate**
+**Evaluate**
     
-    - model_save의 모델을 읽어온 후 의존구문 분석이 끝난 test파일을 test
-    - 성능이 출력
+- model_save의 모델을 읽어온 후 의존구문 분석이 끝난 test파일을 test
+- 성능이 출력
     
-    ```python
+```python
     #입력"sentence, tag" csv 데이터
     data_fnm = "./parser/data/tagging_test.csv"
     #저장된 best 모델
     model_fnm = './model_save/best_model.pt'
     #의존구문 분석된 데이터
     dp_fnm = "./parser/result/tagging_test_rslt.txt"
-    ```
-    
-    ```python
+```
+```python
     conda activate classi
     python inference.py
-    ```
+```
     
-    **Demo**
+**Demo**
     
-    test에서 랜덤 추출한 문장 : corpus.csv
+test에서 랜덤 추출한 문장 : corpus.csv
     
-    ```python
+```python
     conda activate Dpar
     cd parser
     python bin/main.py -root_dir ./ -file_name "./data/corpus.txt" -batch_size 30 -save_file "./result/corpus_rslt.txt" -use_gpu
@@ -198,7 +197,7 @@ pip install mecab-python
     conda activate classi
     python demo.py
     
-    ```
+```
     
-    - 문장의 각 클래스가 예측되어 나옴
+- 문장의 각 클래스가 예측되어 나옴
     
