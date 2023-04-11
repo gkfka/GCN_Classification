@@ -1,4 +1,4 @@
-# GCN_Classification
+# KorSciBERT_GCN_Classification
 
 ## Training Enviroment
 
